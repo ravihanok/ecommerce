@@ -1,0 +1,56 @@
+<form [formGroup]="shoppingForm" (ngSubmit)="createIngredient()" >
+    <div class="row">
+        <div class="col-xs-12">
+                <div class="row">
+                    <input type="hidden" formControlName = "id">
+                    <div class="col-xs-3 form-group">
+                        <label for=name>Name</label>
+                        <input 
+                        type="text" 
+                        id="name" 
+                        class="form-control"
+                        formControlName="name"
+                        >
+                        <span class="text-danger"
+                        *ngIf = "!shoppingForm.get('name').valid && shoppingForm.get('name').touched"
+                        >
+                        Name is required
+                        </span>
+                    </div>
+                    <div class="col-xs-3 form-group">
+                        <label for=amount>Amount</label>
+                        <input type="number"
+                         id="amount"
+                         formControlName = "amount"
+                         class="form-control" >
+                         <span *ngIf = "!shoppingForm.get('amount').valid && shoppingForm.get('amount').touched">
+                            <span class="text-danger"
+                            *ngIf ="onlyRequired"
+                            >
+                            Amount is required
+                            
+                            </span>
+                            <span class="text-danger"
+                            *ngIf ="shoppingForm.get('amount').errors['amountInvalid']"
+                            >
+                            Amount should be greater than zero
+                            
+                            </span>
+                         </span>
+                         
+                    </div>
+    
+    
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 button-group">
+                    <button class="btn btn-success" [disabled]="!shoppingForm.valid" type="submit" >{{editMode?'Update':'Add'}}</button>
+                    <button class="btn btn-danger" (click)="onDelete()" type="button">Delete</button>
+                    <button class="btn btn-primary" (click)="onClear()" type="button">Clear</button>
+                    
+                    </div>
+                </div>
+          
+        </div>
+    </div>
+</form>
